@@ -23,7 +23,7 @@ namespace Calculator
                 throw new InvalidOperationException(errorMessage);
             return value;
         }
-
+        // Перевод в А
         private double GetMaxI()
         {
             double maxI = GetValidatedInput(MaxI, "Некорректное значение тока.");
@@ -35,14 +35,14 @@ namespace Calculator
                 _ => maxI
             };
         }
-
+        // Перевод в мм
         private double GetTrackThickness()
         {
             double trackThickness = GetValidatedInput(TrackThickness, "Некорректное значение толщины дорожки.");
             string unit = ((ComboBoxItem)ComboBoxTrackThickness.SelectedItem)?.Content?.ToString() ?? "";
             return unit switch
             {
-                "унция/фут²" => trackThickness * 0.035,
+                "унция/фут²" => trackThickness * 0.03479,
                 "мил" => trackThickness * 0.0254,
                 "см" => trackThickness * 10,
                 "мм" => trackThickness,
@@ -51,7 +51,7 @@ namespace Calculator
                 _ => trackThickness
             };
         }
-
+        // Перевод в °K
         private double GetTempRise()
         {
             double tempRise = GetValidatedInput(TempRise, "Некорректное значение температуры.");
@@ -62,7 +62,7 @@ namespace Calculator
                 _ => tempRise
             };
         }
-
+        // Перевод в °K
         private double GetAmbTemp()
         {
             double ambTemp = GetValidatedInput(AmbTemp, "Некорректное значение температуры.");
@@ -73,7 +73,7 @@ namespace Calculator
                 _ => ambTemp
             };
         }
-
+        // Перевод в м
         private double GetTrackLength()
         {
             double trackLength = GetValidatedInput(TrackLength, "Некорректное значение длины дорожки.");
@@ -88,7 +88,7 @@ namespace Calculator
                 _ => trackLength
             };
         }
-
+        // Перевод в мил
         private double GetComboBoxUW(ref double temp)
         {
             string unit = ((ComboBoxItem)ComboBoxUW.SelectedItem)?.Content?.ToString() ?? "";
@@ -119,31 +119,29 @@ namespace Calculator
                 const double kEx = 0.048, kIn = 0.024, b = 0.44, c = 0.725;
 
                 // S – площадь сечения дорожки, мил^2
-                double areaEx = Math.Pow(maxI / (kEx * Math.Pow(deltaT, b)), 1 / c);
-                double areaIn = Math.Pow(maxI / (kIn * Math.Pow(deltaT, b)), 1 / c);
+                double areaExMil = Math.Pow(maxI / (kEx * Math.Pow(deltaT, b)), 1 / c);
+                double areaInMil = Math.Pow(maxI / (kIn * Math.Pow(deltaT, b)), 1 / c);
 
                 // W - ширина дорожки, мил
-                double thicknessMil = trackThickness / 0.0254;
-                double widthExMil = areaEx / thicknessMil;
-                double widthInMil = areaIn / thicknessMil;
+                double trackThicknessUnc = trackThickness / 0.03479;
+                double widthExMil = areaExMil / (trackThicknessUnc * 1.378);
+                double widthInMil = areaInMil / (trackThicknessUnc * 1.378);
                 double widthEx = GetComboBoxUW(ref widthExMil);
                 double widthIn = GetComboBoxUW(ref widthInMil);
                 ExTrackWidth.Text = widthEx.ToString("F3");
                 InTrackWidth.Text = widthIn.ToString("F3");
 
-                const double rho = 1.68e-8; // Ом*м
+                // Расчёт удельного сопротивления меди в Ом·мм²/м
+                double rhoStart = 0.0168 * (1 + 0.00393 * (GetAmbTemp() - 20));
+                double rhoEnd = rhoStart * (1 + 0.00393 * (finalT - GetAmbTemp())); 
 
-                // Перевод ширины и толщины в метры
-                double widthExM = widthExMil * 0.0000254;
-                double widthInM = widthInMil * 0.0000254;
-                double thicknessM = trackThickness * 0.001;
-
-                double areaExM2 = widthExM * thicknessM;
-                double areaInM2 = widthInM * thicknessM;
+                // Перевод ширины мм
+                double widthExMm = widthExMil * 0.0254;
+                double widthInMm = widthInMil * 0.0254;
 
                 // Сопротивление
-                double rEx = rho * trackLength / areaExM2;
-                double rIn = rho * trackLength / areaInM2;
+                double rEx = (rhoEnd * trackLength) / (widthExMm * trackThickness);
+                double rIn = (rhoEnd * trackLength) / (widthInMm * trackThickness);
                 ExResist.Text = rEx.ToString("F5");
                 InResist.Text = rIn.ToString("F5");
 

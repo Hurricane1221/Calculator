@@ -113,7 +113,7 @@
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Ширина дорожки:" VerticalAlignment="Center" Margin="0,0,5,5"/>
                 <TextBox x:Name="ExTrackWidth" Grid.Row="1" Grid.Column="1" Margin="0,0,5,5"/>
                 <TextBox x:Name="InTrackWidth" Grid.Row="1" Grid.Column="2" Margin="0,0,5,5"/>
-                <TextBlock Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" Margin="0,0,0,5" Text="{Binding SelectedItem.Content, ElementName=ComboUW}"/>
+                <TextBlock Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" Margin="0,0,0,5" Text="{Binding SelectedItem.Content, ElementName=ComboBoxUW}"/>
 
                 <TextBlock Grid.Row="2" Grid.Column="0" Text="Температура дорожки:" VerticalAlignment="Center" Margin="0,0,5,5"/>
                 <TextBox x:Name="ExTrackTemp" Grid.Row="2" Grid.Column="1" Margin="0,0,5,5"/>

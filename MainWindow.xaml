@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Calculator"
         mc:Ignorable="d"
         Title="Калькулятор" Height="500" Width="650" Background="#F4F4F4"
-        Icon="/calculator.png">
+        Icon="/Иконка/calculator.png">
 
     <Window.Resources>
         <Style TargetType="GroupBox">

@@ -8,4 +8,12 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="calculator.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Иконка\calculator.png" />
+  </ItemGroup>
+
 </Project>

@@ -5,7 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Calculator"
         mc:Ignorable="d"
-        Title="Расчет ширины дорожки печатной платы в зависимости от силы тока" Height="500" Width="650">
+        Title="Калькулятор" Height="500" Width="650" Background="#F4F4F4"
+        Icon="/calculator.png">
+
+    <Window.Resources>
+        <Style TargetType="GroupBox">
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+    </Window.Resources>
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -14,7 +22,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Расчёт" Margin="0,0,0,10"/>
+        <TextBlock Grid.Row="0" Text="Расчет ширины дорожки печатной платы в зависимости от силы тока" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10"/>
 
         <GroupBox Grid.Row="1" Header="Входные данные:" Margin="0,0,0,10">
             <Grid Margin="5">
@@ -86,7 +94,7 @@
                     <ComboBoxItem Content="дюйм"/>
                 </ComboBox>
 
-                <Button Grid.Row="6" Content="Расчёт" Width="100" Height="25"  HorizontalAlignment="Left" Margin="193,0,0,0" Grid.ColumnSpan="2" Click="CalculateButton_Click"/>
+                <Button Grid.Row="6" Content="Расчёт" Width="100" Height="25"  HorizontalAlignment="Left" Click="CalculateButton_Click" Background="#007ACC" Foreground="White" Grid.Column="1"/>
             </Grid>
         </GroupBox >
 
@@ -111,28 +119,28 @@
                 <TextBlock Grid.Row="0" Grid.Column="2" Text="Для внутренних слоев" VerticalAlignment="Center" Margin="0,0,5,5" HorizontalAlignment="Center"/>
 
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Ширина дорожки:" VerticalAlignment="Center" Margin="0,0,5,5"/>
-                <TextBox x:Name="ExTrackWidth" Grid.Row="1" Grid.Column="1" Margin="0,0,5,5"/>
-                <TextBox x:Name="InTrackWidth" Grid.Row="1" Grid.Column="2" Margin="0,0,5,5"/>
+                <TextBox x:Name="ExTrackWidth" Grid.Row="1" Grid.Column="1" Margin="0,0,5,5" IsEnabled="False"/>
+                <TextBox x:Name="InTrackWidth" Grid.Row="1" Grid.Column="2" Margin="0,0,5,5" IsEnabled="False"/>
                 <TextBlock Grid.Row="1" Grid.Column="3" VerticalAlignment="Center" Margin="0,0,0,5" Text="{Binding SelectedItem.Content, ElementName=ComboBoxUW}"/>
 
                 <TextBlock Grid.Row="2" Grid.Column="0" Text="Температура дорожки:" VerticalAlignment="Center" Margin="0,0,5,5"/>
-                <TextBox x:Name="ExTrackTemp" Grid.Row="2" Grid.Column="1" Margin="0,0,5,5"/>
-                <TextBox x:Name="InTrackTemp" Grid.Row="2" Grid.Column="2" Margin="0,0,5,5"/>
+                <TextBox x:Name="ExTrackTemp" Grid.Row="2" Grid.Column="1" Margin="0,0,5,5" IsEnabled="False"/>
+                <TextBox x:Name="InTrackTemp" Grid.Row="2" Grid.Column="2" Margin="0,0,5,5" IsEnabled="False"/>
                 <TextBlock Grid.Row="2" Grid.Column="3" Text="°C" VerticalAlignment="Center" Margin="0,0,0,5"/>
 
                 <TextBlock Grid.Row="3" Grid.Column="0" Text="Сопротивление:" VerticalAlignment="Center" Margin="0,0,5,5"/>
-                <TextBox x:Name="ExResist" Grid.Row="3" Grid.Column="1" Margin="0,0,5,5"/>
-                <TextBox x:Name="InResist" Grid.Row="3" Grid.Column="2" Margin="0,0,5,5"/>
+                <TextBox x:Name="ExResist" Grid.Row="3" Grid.Column="1" Margin="0,0,5,5" IsEnabled="False"/>
+                <TextBox x:Name="InResist" Grid.Row="3" Grid.Column="2" Margin="0,0,5,5" IsEnabled="False"/>
                 <TextBlock Grid.Row="3" Grid.Column="3" Text="Ом" VerticalAlignment="Center" Margin="0,0,0,5"/>
 
                 <TextBlock Grid.Row="4" Grid.Column="0" Text="Падение напряжения:" VerticalAlignment="Center" Margin="0,0,5,5"/>
-                <TextBox x:Name="ExVolt"  Grid.Row="4" Grid.Column="1" Margin="0,0,5,5"/>
-                <TextBox x:Name="InVolt" Grid.Row="4" Grid.Column="2" Margin="0,0,5,5"/>
+                <TextBox x:Name="ExVolt"  Grid.Row="4" Grid.Column="1" Margin="0,0,5,5" IsEnabled="False"/>
+                <TextBox x:Name="InVolt" Grid.Row="4" Grid.Column="2" Margin="0,0,5,5" IsEnabled="False"/>
                 <TextBlock Grid.Row="4" Grid.Column="3" Text="В" VerticalAlignment="Center" Margin="0,0,0,5"/>
 
                 <TextBlock Grid.Row="5" Grid.Column="0" Text="Рассеиваемая мощность:" VerticalAlignment="Center" Margin="0,0,5,5"/>
-                <TextBox x:Name="ExPow"  Grid.Row="5" Grid.Column="1" Margin="0,0,5,5"/>
-                <TextBox x:Name="InPow" Grid.Row="5" Grid.Column="2" Margin="0,0,5,5"/>
+                <TextBox x:Name="ExPow"  Grid.Row="5" Grid.Column="1" Margin="0,0,5,5" IsEnabled="False"/>
+                <TextBox x:Name="InPow" Grid.Row="5" Grid.Column="2" Margin="0,0,5,5" IsEnabled="False"/>
                 <TextBlock Grid.Row="5" Grid.Column="3" Text="Вт" VerticalAlignment="Center" Margin="0,0,0,5"/>
             </Grid>
         </GroupBox>
